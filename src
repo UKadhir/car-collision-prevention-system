@@ -1,0 +1,130 @@
+// Define variables for pins that the sensor, buzzer, and LED are connected to
+int piezo = 13;
+int sensor = A5;
+ 
+// Define variable that will hold the distance value in inches
+int distance = 0;
+ 
+// This function will run once at the start of the program
+void setup(){
+  // Begin serial communication (communication through the USB port to the Arduino Uno)
+  Serial.begin(9600);
+ 
+  // Define the LEDs as outputs (the LEDs won't work properly if you don't do this)
+  pinMode(11, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(9, OUTPUT);
+  pinMode(8, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(3, OUTPUT);
+ 
+  // Start with the LEDs off
+  digitalWrite(11, LOW);
+  digitalWrite(10, LOW);
+  digitalWrite(9, LOW);
+  digitalWrite(8, LOW);
+  digitalWrite(7, LOW);
+  digitalWrite(6, LOW);
+  digitalWrite(5, LOW);
+  digitalWrite(4, LOW);
+  digitalWrite(3, LOW);
+}
+ 
+// This function will loop endlessly
+void loop() {
+  // Converting the bit reading from the sensor to inches
+  distance = ((analogRead(sensor) * 5) / 25.4) * 3;
+  // Printing the distance to the serial monitor to make sure everything is working properly
+  Serial.println(distance);
+ 
+  if (distance > 300)
+  {
+    digitalWrite(3, HIGH);
+    digitalWrite(4, LOW);
+    digitalWrite(5, LOW);
+    digitalWrite(6, LOW);
+    digitalWrite(7, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(10, LOW);
+    digitalWrite(11, LOW);
+    noTone(piezo);
+  }
+  if (distance > 276 && distance <= 300)
+  {
+    digitalWrite(4, HIGH);
+    digitalWrite(5, LOW);
+    digitalWrite(6, LOW);
+    digitalWrite(7, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(10, LOW);
+    digitalWrite(11, LOW);
+    noTone(piezo);
+  }
+  if (distance > 252 && distance <= 276)
+  {
+    digitalWrite(5, HIGH);
+    digitalWrite(6, LOW);
+    digitalWrite(7, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(10, LOW);
+    digitalWrite(11, LOW);
+    noTone(piezo);
+  }
+  if (distance > 228 && distance <= 252)
+  {
+    digitalWrite(6, HIGH);
+    digitalWrite(7, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(10, LOW);
+    digitalWrite(11, LOW);
+    noTone(piezo);
+  }
+  if (distance > 204 && distance <= 228)
+  {
+    digitalWrite(7, HIGH);
+    digitalWrite(8, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(10, LOW);
+    digitalWrite(11, LOW);
+    noTone(piezo);
+  }
+  if (distance > 180 && distance <= 204)
+  {
+    digitalWrite(8, HIGH);
+    digitalWrite(9, LOW);
+    digitalWrite(10, LOW);
+    digitalWrite(11, LOW);
+    noTone(piezo);
+  }
+  if (distance > 156 && distance <= 180)
+  {
+    digitalWrite(9, HIGH);
+    digitalWrite(10, LOW);
+    digitalWrite(11, LOW);
+    tone(piezo, 1000, 1000);
+    noTone(piezo);
+  }
+  if (distance > 132 && distance <= 156)
+  {
+    digitalWrite(10, HIGH);
+    digitalWrite(11, LOW);
+    noTone(piezo);
+  }
+  if (distance > 84 && distance <= 132)
+  {
+    digitalWrite(11, HIGH);
+    noTone(piezo);
+  }
+  if (distance <= 84)
+  {
+    tone(piezo, 2000, 1000);
+    tone(piezo, 4000, 1000);
+  }
+}
