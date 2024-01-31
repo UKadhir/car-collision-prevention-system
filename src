@@ -1,3 +1,5 @@
+// *This code was written using the Arduino IDE*
+
 // Define variables for pins that the sensor, buzzer, and LED are connected to
 int piezo = 13;
 int sensor = A5;
